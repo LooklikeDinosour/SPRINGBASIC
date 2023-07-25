@@ -4,8 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
   
   
- <!-- 마이바티스 관련 부가설정 등을 할 수 있습니다. -->
+ <!-- 마이바티스 관련 부가설정 등을 할 수 있습니다.  alias 는 클래스명 -->
   
   <configuration>
-  
+  	<typeAliases>
+  	<typeAlias type="com.simple.command.ScoreVO" alias="ScoreVO"/>
+  	<typeAlias type="com.simple.command.BoardVO" alias="BoardVO"/>
+  	</typeAliases>  	 
+
   </configuration>

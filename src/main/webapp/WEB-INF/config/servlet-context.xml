@@ -22,9 +22,7 @@
 	</beans:bean>
 	
 	<!-- controller패키지를 읽어서 @controller 어노테이션을 빈으로생성 // controller -> * 바꿈 -->
-	<context:component-scan base-package="com.simple.*"/>
-<!-- 		<context:include-filter type="annotation" expression=""/>	
-	</context:component-scan> -->
+	<context:component-scan base-package="com.simple.*" />
 	
 	
 	<!-- 서비스영역 bean으로 등록 -->

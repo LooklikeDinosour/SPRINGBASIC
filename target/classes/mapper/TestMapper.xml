@@ -13,5 +13,81 @@
  		select now()
  	 
   	</select>
+  	
+  	<!--파라미터타입 -  int, double, string -->
+  	<!-- 매개변수가 단일 값이라면 인터페이스 이름을 따라갑니다. -->
+  	<insert id="insertOne" parameterType="string">
+  		insert into score (name)
+  		values (#{name})
+  	</insert>
   
-  </mapper>
+  	<!-- vo가 매개변수 인 경우에는 getter명을 따라갑니다. -->
+  	<insert id="insertTwo" >
+  		insert into score(name, kor, eng)
+  		values (#{name}, #{kor}, #{eng})
+  	</insert>
+  	
+  	<insert id="insertThree">
+  		insert into score(name, kor, eng)
+  		values (#{name}, #{kor}, #{eng})	
+  	</insert>
+  	
+  	<insert id="insertFour">
+  		insert into score(name, kor, eng)
+  		values (#{name}, #{kor}, #{eng})
+  	</insert>
+  	
+  	<!-- 업데이트문 -->
+  	<update id="updateOwn">
+  		update score set name = #{name}, kor = #{kor}, eng = #{eng}
+  		where num = #{num}
+  	</update>
+  	
+  	<!-- 셀렉트문 resultType 필수 -->
+  	<!-- mybatis-config.xml에 앨리어스 등록을 하면 단축명을 사용할 수 있다. -->
+  	<select id="selectOne" resultType="ScoreVO">
+  		select * from score where num = #{num}
+  	</select>
+  	
+  	<!-- 웬만하면 VO로 처리하고 차선책으로 Map 사용  -->
+  	<select id="selectTwo" resultType="map">
+  		select * from score where num = #{num}
+  	</select>
+  	
+  	<!-- (좋은모형 X 일단 VO로 처리해라) -->
+  	<select id="selectThree" resultType="map">
+  		select * from score
+  	</select>
+  	
+  	<!-- M:1조인 본인의 역량-->
+  	<select id="joinOne" resultType="ScoreVO">
+  		select * from score s
+  		left join member m
+  		on s.name = m.id
+  	</select>
+  	
+  	<!-- 1:M조인 -->
+  	<!-- resultMap은 1:M 조인 처리 -->
+  	<select id="joinTwo" resultMap="xxx">
+  		select * from member m 
+  		left join score s 
+  		on m.id = s.name where id = #{name};
+  	</select>
+  	
+  	<!-- type=ORM객체 id = 명칭 -->
+  	<resultMap type="com.simple.command.MemberVO" id="xxx">
+  		<result column="id" property="id"/>
+  		<result column="addr" property="addr"/>
+  		<collection property="list" resultMap="yyy"></collection>
+  	</resultMap>
+  	
+  	<resultMap type="com.simple.command.ScoreVO" id="yyy">
+  		<result column="num" property="num" />
+  		<result column="name" property="name" />
+  		<result column="kor" property="kor" />
+  		<result column="eng" property="eng" />
+  	</resultMap>
+  	
+  	
+  	
+    </mapper>
